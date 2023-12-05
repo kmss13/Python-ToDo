@@ -1,0 +1,12 @@
+import json
+import os
+from datetime import datetime
+
+def display_menu():
+    print("\nДобро пожаловать в Список задач\n")
+    print("1. Показать текущий список")
+    print("2. Добавить задачу")
+    print("3. Удалить задачу")
+    print("4. Выход")
+    choice = int(input("Введите цифру: "))
+    return choice
