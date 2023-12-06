@@ -57,3 +57,42 @@ def remove_note(notes):
         print("Такой цифры нет.")
 
 #Определяем функцию для сохранения заметок в файл
+
+def save_notes():
+
+    with open("notes.json", "w") as file:
+
+        json.dump(notes, file)
+
+
+# Определяем функцию для загрузки заметок из файла
+
+def load_notes():
+
+    if os.path.exists("notes.json"):
+
+        with open("notes.json", "r") as file:
+
+            notes.extend(json.load(file))
+
+
+notes = []
+
+#Загружаем заметки из файла
+load_notes()
+
+choice = display_menu()
+while choice !=5:
+    if choice == 1:
+        read_notes()
+    elif choice == 2:
+        create_note()
+    elif choice == 3:
+        remove_note(notes)
+    elif choice == 4:
+        update_note()    
+    else:
+        print("Неккоректный выбор.")
+    choice = display_menu()
+
+print("Пока!")
