@@ -10,3 +10,50 @@ def display_menu():
     print("4. Выход")
     choice = int(input("Введите цифру: "))
     return choice
+
+def create_note():
+
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # Получаем текущую дату и время
+
+    note_id = len(notes) + 1 # Генерируем уникальный идентификатор для новой заметки
+
+    note_body = input("Введите текст заметки: ")
+
+
+    note = {
+
+        "id": note_id,
+
+        "body": note_body,
+
+        "timestamp": timestamp
+
+    }
+
+    notes.append(note)
+
+    save_notes()
+
+    print("Заметка успешно создана!")
+
+
+# Определяем функцию для чтения всех заметок
+
+def read_notes():
+    if len(notes) == 0:
+        print("Задач не найдено.")
+    else:
+        for note in notes:
+
+            print(f"ID: {note['id']}\n Текст: {note['body']}\n  Дата/Время: {note['timestamp']}\n ")
+
+def remove_note(notes):
+    task_index = int(input("Введите индекс задачи, которую хотите удалить: "))
+    if task_index > 0 and task_index <= len(notes):
+        notes.pop(-1)
+        print("Задача успешно удалена.")
+
+    else:
+        print("Такой цифры нет.")
+
+#Определяем функцию для сохранения заметок в файл
