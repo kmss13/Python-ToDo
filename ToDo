@@ -1,13 +1,17 @@
 import json
+
 import os
+
 from datetime import datetime
+
 
 def display_menu():
     print("\nДобро пожаловать в Список задач\n")
     print("1. Показать текущий список")
     print("2. Добавить задачу")
     print("3. Удалить задачу")
-    print("4. Выход")
+    print("4. Редактировать заметку")
+    print("5. Выход")
     choice = int(input("Введите цифру: "))
     return choice
 
@@ -37,6 +41,33 @@ def create_note():
     print("Заметка успешно создана!")
 
 
+
+def update_note():
+
+        index = int(input("Введите номер заметки,которую вы хотите изменить: "))-1
+        
+        new_body = input('Введите новое содержание заметки: ').title()
+
+        changed_notes = []
+
+        for note in notes:
+
+            new_data = note.replace('\n', ' ').split()
+
+            if new_data[index] == note['body']:
+                new_data[index] = new_body
+                changed_notes.append(f'{new_data[0]}')
+                print()
+            else:
+                changed_notes.append(note)  
+        
+        with open('notes.json', 'w') as file:
+
+            file.write('\n'.join(changed_notes))
+            print('Заметка успешно отредактирована.')
+
+        
+
 # Определяем функцию для чтения всех заметок
 
 def read_notes():
@@ -45,10 +76,10 @@ def read_notes():
     else:
         for note in notes:
 
-            print(f"ID: {note['id']}\n Текст: {note['body']}\n  Дата/Время: {note['timestamp']}\n ")
+            print(f"id:{note['id']}\n Текст:{note['body']}\n  Дата/Время:{note['timestamp']}\n")
 
 def remove_note(notes):
-    task_index = int(input("Введите индекс задачи, которую хотите удалить: "))
+    task_index = int(input("Введите индекс задачи, которую хотите удалить: "))-1
     if task_index > 0 and task_index <= len(notes):
         notes.pop(-1)
         print("Задача успешно удалена.")
